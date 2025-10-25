@@ -34,11 +34,18 @@ limiter = Limiter(
     enabled=RATE_LIMIT_ENABLED
 )
 
-# Initialize engines once (heavy models loaded at import time)
-logger.info("Initializing semantic engine and history database...")
-semantic_engine = SemanticEngine()
-history_db = SearchHistoryDB()
-logger.info("Application initialization complete")
+# Initialize engines (lazy initialization to support testing)
+semantic_engine = None
+history_db = None
+
+def init_engines():
+    """Initialize semantic engine and history database (called lazily on first use)."""
+    global semantic_engine, history_db
+    if semantic_engine is None:
+        logger.info("Initializing semantic engine and history database...")
+        semantic_engine = SemanticEngine()
+        history_db = SearchHistoryDB()
+        logger.info("Application initialization complete")
 
 @app.route("/")
 def home():
@@ -48,6 +55,9 @@ def home():
 @app.route("/search", methods=["POST"])
 @limiter.limit(f"{RATE_LIMIT_REQUESTS}/minute")
 def search_regex():
+    # Only initialize history_db, not semantic_engine (not needed for regex)
+    if history_db is None:
+        init_engines()
     logger.info("POST /search - Regex search request received")
     data = request.get_json()
     pattern = data.get("pattern")
@@ -82,9 +92,14 @@ def search_semantic():
     keyword = data.get("keyword")
     text = data.get("text")
     
+    # Validate input first, before initializing engines
     if not keyword or not text:
         logger.warning("POST /semantic - Missing keyword or text in request")
         return jsonify({"error": "Missing keyword or text"}), 400
+    
+    # Only initialize engines after validation passes
+    if semantic_engine is None or history_db is None:
+        init_engines()
 
     matches = semantic_engine.find_semantic_matches(text, keyword)
     history_db.log_search(keyword, len(matches), ["web_input"])
@@ -103,5 +118,6 @@ if __name__ == "__main__":
     # Remove in-production NLTK downloads; expect preinstalled corpora
     # import nltk
     # nltk.download('wordnet')
+    init_engines()  # Ensure engines are initialized when running directly
     logger.info(f"Starting Flask server on {HOST}:{PORT} (debug={DEBUG})")
     app.run(host=HOST, port=PORT, debug=DEBUG)
