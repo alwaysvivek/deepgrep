@@ -20,7 +20,7 @@
 [![Database](https://img.shields.io/badge/Database-SQLite-073159.svg?logo=sqlite&logoColor=white)](https://www.sqlite.org/index.html)
 
 ### Search Engines & NLP
-[![Custom Regex Engine](https://img.shields.io/badge/Engine-Custom_Matcher-CC3333.svg?style=flat&logo=regex&logoColor=white)](https://github.com/YourUsername/DeepGrep)
+[![Custom Regex Engine](https://img.shields.io/badge/Engine-Custom_Matcher-CC3333.svg?style=flat&logo=regex&logoColor=white)](https://github.com/alwaysvivek/DeepGrep)
 [![NLP Library](https://img.shields.io/badge/NLP-spaCy-09A3D5.svg?logo=spacy&logoColor=white)](https://spacy.io/)
 [![SpaCy Model](https://img.shields.io/badge/SpaCy_Model-en__core__web__sd-09A3D5.svg)](https://spacy.io/models)
 [![Lexical Data](https://img.shields.io/badge/Lexical_Data-NLTK_WordNet-9B2F2A.svg?logo=nativenscript&logoColor=white)](https://www.nltk.org/howto/wordnet.html)
@@ -93,7 +93,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/deepgrep.git
+git clone https://github.com/alwaysvivek/deepgrep.git
 cd deepgrep
 
 # Install dependencies
