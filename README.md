@@ -37,217 +37,184 @@
 ## 📋 Table of Contents
 
 - [Features](#-features)
-- [Screenshots](#-screenshots)
-- [Quick Start](#-quick-start)
-- [API Usage](#-api-usage)
-- [Web Interface](#-web-interface)
-- [Architecture](#-architecture)
+- [2026 Tech Trends](#-2026-tech-trends)
+- [Installation](#-installation)
+- [Usage](#-usage)
+- [API Endpoints](#-api-endpoints)
+- [Configuration](#-configuration)
+- [Contributing](#-contributing)
 - [License](#-license)
 
 ---
 
-## ✨ Features
+## 🚀 Features
 
-| Feature | Description |
-|---------|-------------|
-| 🔄 **Dual-Mode Search** | Regex pattern matching along with AI-powered semantic search |
-| 🧠 **Semantic Intelligence** | Understands context, finds synonyms, and avoids antonyms |
-| 📜 **History Tracking** | Maintains searchable history in SQLite with JSON export |
-| 🔌 **REST API** | Full programmatic access via clean JSON endpoints |
-| 🌐 **Web Interface** | Responsive UI for quick searches and file uploads |
-| ⚡ **Optimized Performance** | Efficient line scanning with intelligent caching |
+DeepGrep combines a high-performance custom regex engine with AI-powered semantic search, backed by persistent history tracking. Key features include:
 
----
+### 🔍 Custom Regex Engine
+- **Full Regex Support**: Implements a complete regex matcher from scratch, supporting literals, character classes (`\d`, `\w`, `[abc]`), quantifiers (`*`, `+`, `?`, `{n,m}`), alternations (`|`), anchors (`^`, `$`), capture groups, and backreferences.
+- **Efficient Matching**: Uses state-based matching with caching for compiled patterns to ensure fast performance on large texts.
+- **Line-by-Line Processing**: Optimized for searching through multi-line text inputs.
 
-## 📸 Screenshots
+### 🧠 Semantic Search
+- **AI-Powered Similarity**: Leverages SpaCy NLP models to find semantically related words based on vector similarity.
+- **Antonym Avoidance**: Integrates WordNet to exclude antonyms and irrelevant matches.
+- **POS Filtering**: Filters results by part-of-speech (e.g., adjectives, verbs) for more accurate contextual matches.
+- **Configurable Thresholds**: Adjustable similarity thresholds and top-N results for fine-tuned searches.
 
-<div style="text-align: center;">
-    <ul>
-        <li style="list-style-type: none;">
-            <b>Regex Usage</b>: Shows a complex Regex pattern matching date/time data in a log snippet. <br>
-            <img src="https://github.com/alwaysvivek/deepgrep/blob/main/assets/outputs/regex.jpeg" alt="Regex Matching Output" style="height: 300px; max-width: 100%; display: block; margin: 10px auto;">
-        </li>
-     <br>
-        <li style="list-style-type: none;">
-            <b>Semantic Search Usage</b>: Shows a Semantic search for "happy" returning "proud" with a similarity score. <br>
-            <img src="https://github.com/alwaysvivek/deepgrep/blob/main/assets/outputs/semantic.jpeg" alt="Semantic Search Result" style="height: 300px; max-width: 100%; display: block; margin: 10px auto;">
-        </li> <br>
-        <li style="list-style-type: none;">
-            <b>Server Log</b>: The server terminal output showing multiple successful POST /semantic calls. <br>
-            <img src="https://github.com/alwaysvivek/deepgrep/blob/main/assets/outputs/api-running.jpeg" alt="API Server Log" style="height: 200px; max-width: 100%; display: block; margin: 10px auto;">
-        </li> <br>
-        <li style="list-style-type: none;">
-            <b>History</b>: The history table view, displaying matches, pattern, and timestamp columns. <br>
-            <img src="https://github.com/alwaysvivek/deepgrep/blob/main/assets/outputs/history.jpeg" alt="History Database View" style="height: 300px; max-width: 100%; display: block; margin: 10px auto;">
-        </li> <br>
-        <li style="list-style-type: none;">
-            <b>Postman Output</b>: Shows the Postman interface with the JSON history response from the /search endpoint. <br>
-            <img src="https://github.com/alwaysvivek/deepgrep/blob/main/assets/outputs/postman%20output.jpeg" alt="Postman API History JSON" style="height: 300px; max-width: 100%; display: block; margin: 10px auto;">
-        </li> <br>
-    </ul>
-</div>
+### 📊 Search History & Analytics
+- **Persistent Logging**: SQLite-backed database to log all searches with timestamps, match counts, and file sources.
+- **History Queries**: Retrieve recent searches, top-used patterns, or export/import history to/from JSON.
+- **Automatic Cleanup**: Maintains a maximum history size to prevent database bloat.
 
-## 🚀 Quick Start
+### 🌐 Web Interface & API
+- **Flask Web App**: Simple HTML/CSS/JS frontend for interactive searches.
+- **REST API**: Endpoints for regex and semantic searches, with JSON responses.
+- **Rate Limiting**: Configurable request limits to prevent abuse.
+- **CORS Support**: Cross-origin requests enabled for integration.
+- **Logging**: Comprehensive logging for debugging and monitoring.
 
-### Installation
+### 🐳 Containerization & Deployment
+- **Docker Support**: Dockerfile for easy containerization and deployment.
+- **Environment Configuration**: Uses `python-decouple` for secure, environment-based config (e.g., via `.env` files).
+- **Production Ready**: Includes lazy initialization, error handling, and scalable architecture.
 
-```bash
-# Clone the repository
-git clone https://github.com/alwaysvivek/deepgrep.git
-cd deepgrep
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-### Running the Server
-
-```bash
-# Start the API server
-python3 -m deepgrep.web.app
-```
-
-The web interface will be available at **http://localhost:8000**
+### 🧪 Testing & Quality
+- **Unit Tests**: Test suite in the `tests/` directory for core functionality.
+- **Code Quality**: Integrated with Qodana for static analysis.
+- **API Testing**: Postman collections for endpoint validation.
 
 ---
 
-## 🔌 API Usage
+## 📦 Installation
 
-### Regex Search
+**Clone the repository**:
+   ```bash
+   git clone https://github.com/alwaysvivek/deepgrep.git
+   cd deepgrep
+   ```
+   
+**Install dependencies**
 
-**Endpoint:** `POST /search`
+    pip install -r requirements.txt
 
-**Request:**
-```json
-{
-  "pattern": "\\d+",
-  "text": "User logged in at 14:32, error code 404"
-}
-```
+### Download SpaCy model
+    python -m spacy download en_core_web_md
+    
+### Set up environment (optional)
+Copy `.env.example` to `.env` and configure as needed.
 
-**Response:**
-```json
-{
-  "matches": ["14", "32", "404"],
-  "history": [
+### Run the app
+    python -m deepgrep.web.app
+
+### Or using Docker
+
+    docker build -t deepgrep .
+    docker run -p 8000:8000 deepgrep
+
+---
+
+## 💡 Usage
+
+### Web Interface
+
+Open http://localhost:8000 in your browser.  
+Enter text and patterns for regex search or keywords for semantic search.
+
+### API Usage
+
+Use tools like curl or Postman to interact with the API.
+
+#### Regex Search
+
+    curl -X POST http://localhost:8000/search \
+      -H "Content-Type: application/json" \
+      -d '{"pattern": "hello.*world", "text": "hello beautiful world"}'
+
+#### Semantic Search
+
+    curl -X POST http://localhost:8000/semantic \
+      -H "Content-Type: application/json" \
+      -d '{"keyword": "happy", "text": "I am joyful and content."}'
+
+---
+
+## 🔗 API Endpoints
+
+### GET /
+
+Serves the home page.
+
+### POST /search
+
+Performs regex search.
+
+Request body:
+
     {
-      "pattern": "\\d+",
-      "timestamp": "2025-10-26T16:00:00",
-      "matches_count": 3
+      "pattern": "string",
+      "text": "string"
     }
-  ]
-}
-```
 
----
+Response:
 
-### Semantic Search
-
-**Endpoint:** `POST /semantic`
-
-**Request:**
-```json
-{
-  "keyword": "happy",
-  "text": "She felt joyful and delighted after the announcement"
-}
-```
-
-**Response:**
-```json
-{
-  "matches": [
-    {"word": "joyful", "similarity": 0.88},
-    {"word": "delighted", "similarity": 0.82}
-  ],
-  "history": [
     {
-      "keyword": "happy",
-      "timestamp": "2025-10-26T16:05:00",
-      "matches_count": 2
+      "matches": [],
+      "history": []
     }
-  ]
-}
-```
+
+### POST /semantic
+
+Performs semantic search.
+
+Request body:
+
+    {
+      "keyword": "string",
+      "text": "string"
+    }
+
+Response:
+
+    {
+      "matches": [["word", score]]
+    }
 
 ---
 
-## 🌐 Web Interface
+## ⚙️ Configuration
 
-### How to Use
+Configure via environment variables (or `.env` file):
 
-1. **Open** http://localhost:8000 in your browser
-2. **Choose** search mode: Regex or Semantic
-3. **Enter** your pattern/keyword and text (or upload a file)
-4. **Click** Search
-5. **View** results and search history in real-time
+    PORT=8000
+    DEBUG=True
+    HOST=0.0.0.0
+
+    RATE_LIMIT_ENABLED=True
+    RATE_LIMIT_REQUESTS=100
+
+    DB_PATH=~/.grepify_history.db
+    MAX_HISTORY=200
+
+    SPACY_MODEL=en_core_web_md
+    SEMANTIC_THRESHOLD=0.45
+    SEMANTIC_TOP_N=10
 
 ---
 
-## 🏗️ Architecture
+## 🤝 Contributing
 
-```
-             ┌──────────────────────────┐
-             │       Web Frontend       │
-             │  (HTML + Tailwind + JS)  │
-             │                          │
-             │  • Input: Pattern/Keyword│
-             │  • Output:               │
-             │      - Search Results    │
-             │      - Search History    │
-             └─────────────┬────────────┘
-                           │
-                           │ HTTP/REST (JSON)
-                           ▼
-             ┌──────────────────────────┐
-             │       Flask API          │
-             │  (Endpoints: /search,    │
-             │   /semantic)             │
-             │  • Routes requests to    │
-             │    Regex or Semantic     │
-             │    Engine                │
-             │  • Logs history          │
-             └─────────────┬────────────┘
-                           │
-          ┌────────────────┴─────────────────┐
-          │                                  │
-          ▼                                  ▼
-┌─────────────────────┐             ┌─────────────────────┐
-│    Regex Engine     │             │  Semantic Engine    │
-│  (Pattern Matching) │             │ (SpaCy + WordNet)   │
-│  • Fast regex search│             │  • Contextual match │
-│  • Backrefs, groups │             │  • Avoid antonyms   │
-└─────────────┬───────┘             └─────────────┬───────┘
-              │                                   │
-              └──────────────┬────────────────────┘
-                             ▼
-                    ┌──────────────────┐
-                    │  Search History  │
-                    │   (SQLite DB)    │
-                    │  • Logs patterns │
-                    │  • Match counts  │
-                    │  • Files/context │
-                    └──────────────────┘
-```
+Contributions are welcome!
 
-### Key Components
-
-- **Frontend:** Displays search results and history with a responsive interface
-- **API Layer:** Single gateway routing to both search engines
-- **Regex Engine:** Fast exact pattern matching with support for groups and backreferences
-- **Semantic Engine:** AI-powered contextual matching using spaCy and WordNet
-- **History Database:** Persistent SQLite storage with full search history
+- Fork the repo
+- Create a feature branch
+- Add tests for new features
+- Ensure code passes Qodana checks
+- Submit a pull request
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-<div align="center">
-
-[Report Bug](https://github.com/alwaysvivek/deepgrep/issues) · [Request Feature](https://github.com/alwaysvivek/deepgrep/issues)
-
-</div>
+This project is licensed under the MIT License.  
+See the LICENSE file for details.
