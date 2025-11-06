@@ -47,6 +47,69 @@
 
 ---
 
+## 🏗️ Architecture
+
+DeepGrep follows a modular architecture with clear separation between the web layer, core search engines, and data persistence:
+
+```mermaid
+graph TB
+    subgraph "Client Layer"
+        User[👤 User]
+        Browser[🌐 Web Browser]
+    end
+    
+    subgraph "Web Layer"
+        UI[Web UI<br/>HTML/CSS/JS + Tailwind]
+        Flask[Flask Application<br/>Rate Limiting + CORS]
+    end
+    
+    subgraph "Core Search Engines"
+        RegexEngine[Custom Regex Engine]
+        SemanticEngine[Semantic Search Engine<br/>SpaCy + NLTK]
+        
+        subgraph "Regex Components"
+            Parser[Pattern Parser]
+            Matcher[State-based Matcher<br/>LRU Cache]
+        end
+    end
+    
+    subgraph "Data Layer"
+        HistoryDB[(SQLite Database<br/>Search History)]
+        SpacyModel[SpaCy Model<br/>en_core_web_md]
+        WordNet[NLTK WordNet<br/>Antonym Filtering]
+    end
+    
+    User --> Browser
+    Browser --> UI
+    UI --> Flask
+    
+    Flask --> RegexEngine
+    Flask --> SemanticEngine
+    Flask --> HistoryDB
+    
+    RegexEngine --> Parser
+    Parser --> Matcher
+    
+    SemanticEngine --> SpacyModel
+    SemanticEngine --> WordNet
+    
+    style User fill:#e1f5ff
+    style Flask fill:#ffd6e0
+    style RegexEngine fill:#fff4cc
+    style SemanticEngine fill:#d4f1d4
+    style HistoryDB fill:#e8d5f2
+```
+
+### Component Overview
+
+- **Web UI**: Interactive interface with dual search modes (regex/semantic), built with Tailwind CSS
+- **Flask Application**: REST API with rate limiting, CORS support, and comprehensive logging
+- **Custom Regex Engine**: From-scratch implementation supporting complex patterns, quantifiers, and capture groups
+- **Semantic Search Engine**: AI-powered similarity matching using word embeddings and POS filtering
+- **Search History**: Persistent SQLite database tracking all searches with timestamps and analytics
+
+---
+
 ## 🚀 Features
 
 DeepGrep combines a high-performance custom regex engine with AI-powered semantic search, backed by persistent history tracking. Key features include:
