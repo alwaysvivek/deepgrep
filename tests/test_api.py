@@ -5,7 +5,7 @@ Tests cover regex search, semantic search, and home route endpoints.
 import pytest
 import json
 from deepgrep.web.app import app
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 
 
 @pytest.fixture
