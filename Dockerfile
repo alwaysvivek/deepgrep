@@ -13,6 +13,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Download NLTK data (WordNet) as required by the app
 RUN python -c "import nltk; nltk.download('wordnet')"
 
+RUN python -m spacy download en_core_web_md
+
 # Copy the entire application code
 COPY . .
 
