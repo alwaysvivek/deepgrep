@@ -21,5 +21,5 @@ COPY . .
 # Expose the port the app runs on (matches default PORT in app.py)
 EXPOSE 8000
 
-# Command to run the application
-CMD ["python", "deepgrep/web/app.py"]
+# Command to run the application with Gunicorn
+CMD ["gunicorn", "deepgrep.web.app:app", "--bind", "0.0.0.0:$PORT"]
