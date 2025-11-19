@@ -22,4 +22,4 @@ COPY . .
 EXPOSE 8000
 
 # Command to run the application with Gunicorn
-CMD ["gunicorn", "deepgrep.web.app:app", "--bind", "0.0.0.0:$PORT"]
+CMD ["sh", "-c", "gunicorn deepgrep.web.app:app --bind 0.0.0.0:$PORT"]
