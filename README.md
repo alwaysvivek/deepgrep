@@ -3,6 +3,7 @@
 > **Lightning-fast regex meets AI-powered semantic search**  
 > Find exact patterns and contextually relevant matches with intelligent history tracking and REST API integration.
 
+> Railway has a free tier due to which project might not be available by the time you open that link. In that case, refer to the github readme for usage instructions.
 ---
 
 ## 🛠️ Tech Stack
