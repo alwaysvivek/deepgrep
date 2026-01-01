@@ -1,6 +1,6 @@
 """Pydantic models for API validation."""
 
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 from typing import List, Optional, Dict, Any
 from datetime import datetime
 
@@ -10,7 +10,8 @@ class SearchRequest(BaseModel):
     pattern: str = Field(..., description="Regex pattern to search for")
     text: str = Field(..., description="Text to search in")
 
-    @validator('pattern')
+    @field_validator('pattern')
+    @classmethod
     def validate_pattern(cls, v):
         if not v or not v.strip():
             raise ValueError("Pattern cannot be empty")
@@ -31,7 +32,8 @@ class SemanticSearchRequest(BaseModel):
     documents: Optional[List[str]] = Field(None, description="Multiple documents to search")
     top_k: Optional[int] = Field(10, ge=1, le=100, description="Number of results to return")
 
-    @validator('query')
+    @field_validator('query')
+    @classmethod
     def validate_query(cls, v):
         if not v or not v.strip():
             raise ValueError("Query cannot be empty")
@@ -54,11 +56,12 @@ class SemanticSearchResponse(BaseModel):
 
 class BatchSearchRequest(BaseModel):
     """Request model for batch search."""
-    queries: List[str] = Field(..., min_items=1, description="List of queries")
+    queries: List[str] = Field(..., min_length=1, description="List of queries")
     text: str = Field(..., description="Text to search in")
     search_type: str = Field("regex", description="Type of search: 'regex' or 'semantic'")
 
-    @validator('search_type')
+    @field_validator('search_type')
+    @classmethod
     def validate_search_type(cls, v):
         if v not in ["regex", "semantic"]:
             raise ValueError("search_type must be 'regex' or 'semantic'")
