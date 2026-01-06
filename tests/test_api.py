@@ -11,9 +11,19 @@ from unittest.mock import patch
 @pytest.fixture
 def client():
     """Create a test client for the Flask app."""
+    from unittest.mock import MagicMock
+    import deepgrep.web.app as app_module
+    
     app.config['TESTING'] = True
     # Disable rate limiting for tests
     app.config['RATELIMIT_ENABLED'] = False
+    
+    # Mock history_db to avoid database operations during tests
+    mock_history_db = MagicMock()
+    mock_history_db.log_search.return_value = None
+    mock_history_db.list_all.return_value = []
+    app_module.history_db = mock_history_db
+    
     with app.test_client() as client:
         yield client
 
