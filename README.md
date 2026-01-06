@@ -65,24 +65,24 @@
     <ul>
         <li style="list-style-type: none;">
             <b>Regex Usage</b>: Shows a complex Regex pattern matching date/time data in a log snippet. <br>
-            <img src="https://github.com/vivekkdagar/deepgrep/blob/77532f804aa766a01abe6d0375965aa20c8623b2/assets/outputs/regex.jpeg" alt="Regex Matching Output" style="height: 300px; max-width: 100%; display: block; margin: 10px auto;">
+            <img src="https://github.com/alwaysvivek/deepgrep/blob/main/assets/outputs/regex.jpeg" alt="Regex Matching Output" style="height: 300px; max-width: 100%; display: block; margin: 10px auto;">
         </li>
      <br>
         <li style="list-style-type: none;">
             <b>Semantic Search Usage</b>: Shows a Semantic search for "happy" returning "proud" with a similarity score. <br>
-            <img src="https://github.com/vivekkdagar/deepgrep/blob/main/assets/outputs/semantic.jpeg" alt="Semantic Search Result" style="height: 300px; max-width: 100%; display: block; margin: 10px auto;">
+            <img src="https://github.com/alwaysvivek/deepgrep/blob/main/assets/outputs/semantic.jpeg" alt="Semantic Search Result" style="height: 300px; max-width: 100%; display: block; margin: 10px auto;">
         </li> <br>
         <li style="list-style-type: none;">
             <b>Server Log</b>: The server terminal output showing multiple successful POST /semantic calls. <br>
-            <img src="https://github.com/vivekkdagar/deepgrep/blob/77532f804aa766a01abe6d0375965aa20c8623b2/assets/outputs/api-running.jpeg" alt="API Server Log" style="height: 200px; max-width: 100%; display: block; margin: 10px auto;">
+            <img src="https://github.com/alwaysvivek/deepgrep/blob/main/assets/outputs/api-running.jpeg" alt="API Server Log" style="height: 200px; max-width: 100%; display: block; margin: 10px auto;">
         </li> <br>
         <li style="list-style-type: none;">
             <b>History</b>: The history table view, displaying matches, pattern, and timestamp columns. <br>
-            <img src="https://github.com/vivekkdagar/deepgrep/blob/77532f804aa766a01abe6d0375965aa20c8623b2/assets/outputs/history.jpeg" alt="History Database View" style="height: 300px; max-width: 100%; display: block; margin: 10px auto;">
+            <img src="https://github.com/alwaysvivek/deepgrep/blob/main/assets/outputs/history.jpeg" alt="History Database View" style="height: 300px; max-width: 100%; display: block; margin: 10px auto;">
         </li> <br>
         <li style="list-style-type: none;">
             <b>Postman Output</b>: Shows the Postman interface with the JSON history response from the /search endpoint. <br>
-            <img src="https://github.com/vivekkdagar/deepgrep/blob/77532f804aa766a01abe6d0375965aa20c8623b2/assets/outputs/postman%20output.jpeg" alt="Postman API History JSON" style="height: 300px; max-width: 100%; display: block; margin: 10px auto;">
+            <img src="https://github.com/alwaysvivek/deepgrep/blob/main/assets/outputs/postman%20output.jpeg" alt="Postman API History JSON" style="height: 300px; max-width: 100%; display: block; margin: 10px auto;">
         </li> <br>
     </ul>
 </div>
@@ -248,6 +248,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-[Report Bug](https://github.com/vivekkdagar/deepgrep/issues) · [Request Feature](https://github.com/vivekkdagar/deepgrep/issues)
+[Report Bug](https://github.com/alwaysvivek/deepgrep/issues) · [Request Feature](https://github.com/alwaysvivek/deepgrep/issues)
 
 </div>

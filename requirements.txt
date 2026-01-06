@@ -3,3 +3,5 @@ spacy
 nltk
 flask-cors
 flask
+python-decouple
+flask-limiter
