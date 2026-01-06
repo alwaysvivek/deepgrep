@@ -8,7 +8,6 @@ from decouple import config
 from deepgrep.core.engine import find_matches
 from deepgrep.core.history import SearchHistoryDB
 from deepgrep.core.semantic_engine import SemanticEngine
-import threading
 
 # Configure logging
 logging.basicConfig(
@@ -23,7 +22,6 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 HOST = config('HOST', default='0.0.0.0')
 RATE_LIMIT_ENABLED = config('RATE_LIMIT_ENABLED', default=True, cast=bool)
 RATE_LIMIT_REQUESTS = config('RATE_LIMIT_REQUESTS', default=100, cast=int)
-RATE_LIMIT_WINDOW = config('RATE_LIMIT_WINDOW', default=60, cast=int)
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
 CORS(app)
