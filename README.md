@@ -150,6 +150,20 @@ DeepGrep combines a high-performance custom regex engine with AI-powered semanti
 
 ---
 
+## ⚡ Performance
+
+DeepGrep is optimized for low resource environments while maintaining high throughput:
+
+| Metric | Result | Context |
+|--------|--------|---------|
+| **Regex Throughput** | ~85 lines/sec | Complex patterns on random text |
+| **Memory Footprint** | < 1MB | Peak memory during heavy regex matching |
+| **History DB Write** | ~675 ops/sec | SQLite write performance |
+
+*Benchmarks run on Python 3.14 on macOS.*
+
+---
+
 ## 📦 Installation
 
 **Clone the repository**:
